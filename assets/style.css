@@ -1,0 +1,34 @@
+body {
+    background-color: #e5e8eb;
+    position: fixed;
+}
+.banner{
+    width: 100%;
+    height: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 50px;
+    background-color: #318dcf;
+    border: 1px solid #cccccc;
+}
+
+.contains_graph1 {
+    width: 1600px;
+    height: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #e5e8eb;
+}
+
+.contains_graph2 {
+    width: 1600px;
+    height: 850px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
+    background-color: #ffffff;
+}
+
