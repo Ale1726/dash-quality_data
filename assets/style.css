@@ -1,8 +1,8 @@
 body {
     background-color: #e5e8eb;
-    position: fixed;
 }
-.banner{
+
+.banner {
     width: 100%;
     height: 80px;
     margin-left: auto;
@@ -10,7 +10,16 @@ body {
     margin-bottom: 50px;
     background-color: #318dcf;
     border: 1px solid #cccccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Arial', sans-serif; /* Cambia la fuente a una más atractiva */
+    font-size: 24px; /* Ajusta el tamaño de la fuente */
+    color: white; /* Cambia el color del texto */
+    text-transform: uppercase; /* Transforma el texto a mayúsculas */
+    letter-spacing: 2px; /* Espaciado entre letras */
 }
+
 
 .contains_graph1 {
     width: 1600px;

@@ -25,7 +25,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.SLATE])
 
 app.layout = html.Div([
     #BANNER
-    html.Div(className="banner"),
+    html.Div("ANÁLISIS DE CALIDAD DE DATOS DE LOS SISTEMAS DE CLIENTES", className="banner"),
     #TABLAS VACIAS POR SISTEMAS
     html.Div([
         #Columna 1:
@@ -91,6 +91,7 @@ app.layout = html.Div([
         className="contains_graph1"),
     # VALORES NULOS
     html.Div(
+        style={'display': 'flex'},
         className="contains_graph2"
     )
     ]
