@@ -13,8 +13,8 @@ import math
 import random
 
 # Leer el archivo CSV
-df = pd.read_csv('/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/data_num_registros.csv')
-path_all_tables = '/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/all_tables'
+df = pd.read_csv('dash-quality_data/data/data_num_registros.csv')
+path_all_tables = '/home/ale1726/proyects/dash/dash-quality_data/data/all_tables'
 descripcion = df['NUMERO DE TABLAS VACIAS'].describe()
 
 # Extraer los datos bar char
@@ -36,7 +36,7 @@ encabezado = [
 estadisticas=['Numero de sistemas',
               'Promedio de tablas vacias',
               'Desviacion estandar',
-              'Numero minima de tablas vacias',
+              'Numero minimo de tablas vacias',
               "El '25%' del total de tablas",
               "El '50%' del total de tablas",
               "El '75%' del total de tablas",
@@ -60,18 +60,60 @@ app.layout = html.Div([
         #Columna 1:
         html.Div([
             html.Div([
+                dbc.Card(
+                        dbc.CardBody(
+                                [
+                                    html.P('NÚMERO TOTAL DE TABLAS: ', style={'font-size': '17px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                                    html.P(f'{int(sum(num_tablas))}', style={'font-size': '50px', 'color':'white', 'font-weight': 'bold','textAlign': 'center'})
+                                ]
+                            ),
+                            style={
+                                'display': 'flex',
+                                'width': "45%",
+                                'height': '80%',
+                                'background-color': '#0081a7',
+                                'margin': '5px',
+                                'border-radius': '15%'
+                            }
+                        ),
+                dbc.Card(
+                        dbc.CardBody(
+                                [
+                                    html.P('NÚMERO TOTAL DE TABLAS VACÍAS: ', style={'font-size': '17px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                                    html.P(f'{int(sum(num_tablas_vacias))}', style={'font-size': '50px', 'color':'white','font-weight': 'bold', 'textAlign': 'center'})
+                                ]
+                            ),
+                            style={
+                                'display': 'flex',
+                                'width': "45%",
+                                'height': '80%',
+                                'background-color': '#00afb9',
+                                'margin': '5px',
+                                'border-radius': '15%'
+                            }
+                        )
+                ],
+                    style={
+                        'margin-top': 30,
+                        'display': 'flex',
+                        'flex-wrap': 'wrap',
+                        #'margin': '10px',
+                        'height': '30%'
+                    }   
+                     ),
+            html.Div([
                 table_graph1
             ],
                 style={
                 'margin-left': 15,
                 'margin-right': 15,
-                'margin-top': 350,
+                'margin-top': 10,
                 'margin-bottom': 5,
-                })
+                }),
         ],style={
                 'width': "25%",
                 'margin-left': 0,
-                'margin-top': 5,
+                'margin-top': 0,
                 'margin-bottom': 5,
                 'background-color': 'white',
                 'border-radius': 10,
