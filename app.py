@@ -15,6 +15,7 @@ import random
 # Leer el archivo CSV
 df = pd.read_csv('/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/data_num_registros.csv')
 path_all_tables = '/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/all_tables'
+descripcion = df['NUMERO DE TABLAS VACIAS'].describe()
 
 # Extraer los datos bar char
 sistemas_list= df['SISTEMA'].tolist()
@@ -27,7 +28,27 @@ porcentaje_tablas_vacias = df['PORCENTAJE DE TABLAS VACIAS'].tolist()
 df_all_tables = [os.path.join(path_all_tables,archivo) for archivo in os.listdir(path_all_tables)]
 list_df_1 = [pd.read_csv(df2) for df2 in df_all_tables]
 
+descripcion_dict = descripcion.to_dict()
 
+encabezado = [
+    html.Thead(html.Tr([html.Th("Estadística"), html.Th("Valor")]))
+]
+estadisticas=['Numero de sistemas',
+              'Promedio de tablas vacias',
+              'Desviacion estandar',
+              'Numero minima de tablas vacias',
+              "El '25%' del total de tablas",
+              "El '50%' del total de tablas",
+              "El '75%' del total de tablas",
+              'Numero maximo de tablas vacias'
+              ]
+rows = []
+for key, value in zip(estadisticas,descripcion_dict.values()):
+    rows.append(html.Tr([html.Td(key), html.Td(round(value,2))]))
+
+cuerpo_tabla = [html.Tbody(rows)]
+
+table_graph1 = dbc.Table(encabezado + cuerpo_tabla, color='blue', bordered=True, dark=True, hover=True, responsive=True, striped=True)
 # Crear la aplicación Dash
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUMEN])
 
@@ -37,15 +58,25 @@ app.layout = html.Div([
     #TABLAS VACIAS POR SISTEMAS
     html.Div([
         #Columna 1:
-        html.Div( style={
-                 'width': "25%",
-                 'margin-left': 0,
-                 'margin-top': 5,
-                 'margin-bottom': 5,
-                 'background-color': 'white',
-                 'border-radius': 10,
-                 'height':'auto'
-             }),
+        html.Div([
+            html.Div([
+                table_graph1
+            ],
+                style={
+                'margin-left': 15,
+                'margin-right': 15,
+                'margin-top': 350,
+                'margin-bottom': 5,
+                })
+        ],style={
+                'width': "25%",
+                'margin-left': 0,
+                'margin-top': 5,
+                'margin-bottom': 5,
+                'background-color': 'white',
+                'border-radius': 10,
+                'height': 'auto'
+            }),
         #Columna 2: 
         html.Div([
                 # Contenedor principal
@@ -106,6 +137,7 @@ app.layout = html.Div([
         html.Div([
             "VALORES NULOS POR SISTEMA"
             ],className="banner_2"),
+        
         html.Div([
                 dbc.Tabs(
                     id='bar-chart-sistema-tabs',
@@ -114,9 +146,13 @@ app.layout = html.Div([
                     children=[
                         dbc.Tab(label=str(sistema), tab_id=f'{sistema}') for sistema in sistemas_list
                     ]
-                )
+                ), 
             ], 
-            style={'height': '10%', 'display': 'flex', 'flex-direction': 'column', 'width': '100%', 'background-color': 'white'}),
+            style={'height': '10%',
+                   'display': 'flex', 
+                   'flex-direction': 'column', 
+                   'width': '100%', 
+                   'background-color': 'white'}),
         
         html.Div(dcc.Graph(id='dispersion-chart', config={'responsive': True}),
                 style={'height':'80%','display': 'flex', 'flex-direction': 'column', 'width': '60%' }),
@@ -128,7 +164,7 @@ app.layout = html.Div([
                 html.Br(),
                 html.Br(),
                 html.Br(),
-                html.Div(id='table-container')
+                html.Div(id='table-container', style={'margin-left': 100, 'margin-right': 150})
             ],
             style={'height': '80%', 'display': 'flex', 'flex-direction': 'column', 'width': '40%', 'background-color': 'white'}
             )
@@ -256,7 +292,7 @@ for i, df1 in enumerate(list_df_1):
 )
 #GRAFICO VALORES NULOS 
 def update_graph_vall_null(select_system):
-    colors = ["#0a2239","#53a2be","#1d84b5","#132e32","#176087"]
+    colors = ["#0a2239","#336c81","#1d84b5","#00eaff","#00ffcc",'#00ff48', '#f2ff00', '#ff8009', '#f07167']
     # Concatenar los DataFrames
     df_3 = pd.concat(list_df_table, ignore_index=True)
     names =  df_3['SISTEMA'].unique().tolist()

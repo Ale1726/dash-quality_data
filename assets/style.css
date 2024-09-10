@@ -37,8 +37,17 @@ body {
     text-transform: uppercase; /* Transforma el texto a mayúsculas */
     letter-spacing: 2px; /* Espaciado entre letras */
 }
-
-
+.prueba{
+    background-color: #0a2239;
+    background-color: #336c81;
+    background-color: #1d84b5;
+    background-color: #00eaff;
+    background-color: #00ffcc;
+    background-color: #00ff48; 
+    background-color: #f2ff00; 
+    background-color: #ff8009;
+    background-color: #f07167;
+}
 .contains_graph1 {
     width: 98%;
     height: 100%;
