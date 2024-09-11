@@ -55,6 +55,7 @@ app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUMEN])
 app.layout = html.Div([
     #BANNER
     html.Div("ANÁLISIS DE CALIDAD DE DATOS DE LOS SISTEMAS DE CLIENTES", className="banner"),
+    html.Div("TABLAS VACIAS POR SISTEMA", className="banner_2"),
     #TABLAS VACIAS POR SISTEMAS
     html.Div([
         #Columna 1:
@@ -79,7 +80,7 @@ app.layout = html.Div([
                 dbc.Card(
                         dbc.CardBody(
                                 [
-                                    html.P('NÚMERO TOTAL DE TABLAS VACÍAS: ', style={'font-size': '17px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                                    html.P('NÚMERO TOTAL DE TABLAS VACÍAS: ', style={'font-size': '17px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'left'}),
                                     html.P(f'{int(sum(num_tablas_vacias))}', style={'font-size': '50px', 'color':'white','font-weight': 'bold', 'textAlign': 'center'})
                                 ]
                             ),
@@ -126,7 +127,7 @@ app.layout = html.Div([
                     # Parte superior 
             html.Div([
                 html.Div([
-                    html.B("TABLAS VACÍAS POR SISTEMA", style={'fontSize': '22px', 'fontFamily': 'sans-serif', 'textTransform': 'uppercase', 'color':'#A0A0A0'})
+                    html.B("FRECUENCIA DE TABLAS VACÍAS POR SISTEMA", style={'fontSize': '22px', 'fontFamily': 'sans-serif', 'textTransform': 'uppercase', 'color':'#A0A0A0'})
                     ],
                     style={'height': '90%', 'width': '65%',  'textAlign': 'right', 'margin-top': 5}),
                 
@@ -206,7 +207,7 @@ app.layout = html.Div([
                 html.Br(),
                 html.Br(),
                 html.Br(),
-                html.Div(id='table-container', style={'margin-left': 100, 'margin-right': 150})
+                html.Div(id='table-container', style={'margin-left': 100, 'margin-right': 100})
             ],
             style={'height': '80%', 'display': 'flex', 'flex-direction': 'column', 'width': '40%', 'background-color': 'white'}
             )
@@ -385,10 +386,14 @@ def update_graph_vall_null(select_system):
         #width=600,        #ancho total
         showlegend=True,       
         title={
-            'text': f'Dispersion de Valores Nulos por tabla en {filtred}',
+            'text': f'DISPERSION DE VALORES NULOS POR TABLA EN EL SISTEMA: {filtred}',
             'x': 0.5,
             'xanchor': 'center',
-            'yanchor': 'top'
+            'yanchor': 'top',
+            'font': {
+                'size': 22,
+                'family': 'sans-serif',
+                 'color': '#A0A0A0'}
         },
         yaxis_title='Valores nulos',
         xaxis_title='Tablas'
@@ -415,7 +420,7 @@ def update_table(active_tab):
             f'Numero minimo de valores nulos en {filtred}',
             f'Tabla con mayor numero de valores nulos en {filtred}',
             f'Tabla con menor numero de valores nulos en {filtred}',
-            f'Promedio en {filtred}',
+            f'Promedio de valores nulos en {filtred}',
             f'Numero de tablas en {filtred}'
         ],
         'Valor': [
