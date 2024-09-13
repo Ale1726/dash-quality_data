@@ -12,6 +12,7 @@ from dash import callback_context
 import math
 import random
 
+
 # Leer el archivo CSV
 df = pd.read_csv('dash-quality_data/data/data_num_registros.csv')
 path_all_tables = '/home/ale1726/proyects/dash/dash-quality_data/data/all_tables'
@@ -31,7 +32,7 @@ list_df_1 = [pd.read_csv(df2) for df2 in df_all_tables]
 descripcion_dict = descripcion.to_dict()
 
 encabezado = [
-    html.Thead(html.Tr([html.Th("Estadística"), html.Th("Valor")]))
+    html.Thead(html.Tr([html.Th('Descripción'), html.Th('Valor')]))
 ]
 estadisticas=['Numero de sistemas',
               'Promedio de tablas vacias',
@@ -156,11 +157,11 @@ app.layout = html.Div([
                         options=[{'label': sistema, 'value': sistema} for sistema in sistemas_list],
                         value=sistemas_list[:],
                         inline=False,
-                        label_checked_style={"color": "black"},
+                        label_checked_style={"color": "#0046a7"},
                         input_checked_style={
-                            "backgroundColor": "#2F82B1",
-                            "borderColor": "#2F82B1",})
-                    ], style={'height': "100%", 'width': '7%'})
+                            "backgroundColor": "#47b3fe",
+                            "borderColor": "#4777a6",})
+                    ], style={'height': "100%", 'width': '7%',  'margin-left': 5})
             ], style={
                 'display': 'flex',
                 'width': '75%',
@@ -187,7 +188,9 @@ app.layout = html.Div([
                     active_tab=f'{sistemas_list[0]}',
                     class_name='d-flex justify-content-center w-100',
                     children=[
-                        dbc.Tab(label=str(sistema), tab_id=f'{sistema}') for sistema in sistemas_list
+                        dbc.Tab(label=str(sistema), 
+                                tab_id=f'{sistema}',
+                                activeLabelClassName="text-success") for sistema in sistemas_list
                     ]
                 ), 
             ], 
@@ -285,11 +288,12 @@ def update_graph(value):
         fig.add_annotation(
             x=num_tablas[i],
             y=sistemas[i],
-            text=f'{num_tablas_vacias[i]}|{num_tablas[i]}<br>{porcentaje_tablas_vacias[i]}%',
+            text=f'{int(num_tablas_vacias[i])} | {int(num_tablas[i])}<br> {porcentaje_tablas_vacias[i]}%',
             showarrow=False,
             font=dict(size=14,
                     family="sans-serif",  # Tipo de fuente
-                    color="#757575"  # Color del texto
+                    color="black",  # Color del texto
+                    weight="bold"
                     ),
             xanchor='left'
         )
