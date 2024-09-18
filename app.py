@@ -12,10 +12,9 @@ from dash import callback_context
 import math
 import random
 
-
 # Leer el archivo CSV
-df = pd.read_csv('dash-quality_data/data/data_num_registros.csv')
-path_all_tables = '/home/ale1726/proyects/dash/dash-quality_data/data/all_tables'
+df = pd.read_csv('/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/data_num_registros.csv')
+path_all_tables = '/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/all_tables'
 descripcion = df['NUMERO DE TABLAS VACIAS'].describe()
 
 # Extraer los datos bar char
@@ -51,6 +50,7 @@ cuerpo_tabla = [html.Tbody(rows)]
 
 table_graph1 = dbc.Table(encabezado + cuerpo_tabla, color='blue', bordered=True, dark=True, hover=True, responsive=True, striped=True)
 # Crear la aplicación Dash
+#Morph MORPH
 app = dash.Dash(__name__, external_stylesheets=[dbc.themes.LUMEN])
 
 app.layout = html.Div([
@@ -65,14 +65,14 @@ app.layout = html.Div([
                 dbc.Card(
                         dbc.CardBody(
                                 [
-                                    html.P('NÚMERO TOTAL DE TABLAS: ', style={'font-size': '17px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
-                                    html.P(f'{int(sum(num_tablas))}', style={'font-size': '50px', 'color':'white', 'font-weight': 'bold','textAlign': 'center'})
+                                    html.P('NÚMERO TOTAL DE TABLAS: ', style={'font-size': '15px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                                    html.P(f'{int(sum(num_tablas))}', style={'font-size': '45px', 'color':'white', 'font-weight': 'bold','textAlign': 'center'})
                                 ]
                             ),
                             style={
                                 'display': 'flex',
                                 'width': "45%",
-                                'height': '80%',
+                                'height': '100%',
                                 'background-color': '#0081a7',
                                 'margin': '5px',
                                 'border-radius': '15%'
@@ -81,14 +81,14 @@ app.layout = html.Div([
                 dbc.Card(
                         dbc.CardBody(
                                 [
-                                    html.P('NÚMERO TOTAL DE TABLAS VACÍAS: ', style={'font-size': '17px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'left'}),
-                                    html.P(f'{int(sum(num_tablas_vacias))}', style={'font-size': '50px', 'color':'white','font-weight': 'bold', 'textAlign': 'center'})
+                                    html.P('NÚMERO DE TABLAS VACÍAS: ', style={'font-size': '15px', 'color':'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                                    html.P(f'{int(sum(num_tablas_vacias))}', style={'font-size': '45px', 'color':'white','font-weight': 'bold', 'textAlign': 'center'})
                                 ]
                             ),
                             style={
                                 'display': 'flex',
                                 'width': "45%",
-                                'height': '80%',
+                                'height': '100%',
                                 'background-color': '#00afb9',
                                 'margin': '5px',
                                 'border-radius': '15%'
@@ -100,7 +100,7 @@ app.layout = html.Div([
                         'display': 'flex',
                         'flex-wrap': 'wrap',
                         #'margin': '10px',
-                        'height': '30%'
+                        'height': '20%'
                     }   
                      ),
             html.Div([
@@ -109,7 +109,7 @@ app.layout = html.Div([
                 style={
                 'margin-left': 15,
                 'margin-right': 15,
-                'margin-top': 10,
+                'margin-top': 25,
                 'margin-bottom': 5,
                 }),
         ],style={
@@ -133,8 +133,8 @@ app.layout = html.Div([
                     style={'height': '90%', 'width': '65%',  'textAlign': 'right', 'margin-top': 5}),
                 
                 html.Div([
-                    dbc.Button("ALL", color="primary", size="sm", id='select-all-button', n_clicks=0),
-                    dbc.Button("DELETE", color="secondary", size="sm", id='deselect-all-button', n_clicks=0),
+                    dbc.Button("ALL", color="primary", className="me-1", size="sm", id='select-all-button', n_clicks=0),
+                    dbc.Button("DELETE", color="danger", className="me-1", size="sm", id='deselect-all-button', n_clicks=0),
                     ],
                     style={'height': '90%', 'width': '35%', 'textAlign': 'right', 'margin-top': 5}),
             ], style={'display': 'flex', 'height': '5%', 'width': '100%', 'flexDirection': 'row'}),
@@ -190,7 +190,7 @@ app.layout = html.Div([
                     children=[
                         dbc.Tab(label=str(sistema), 
                                 tab_id=f'{sistema}',
-                                activeLabelClassName="text-success") for sistema in sistemas_list
+                                active_label_style={"backgroundColor": "#00D1FF"}) for sistema in sistemas_list
                     ]
                 ), 
             ], 
@@ -202,15 +202,62 @@ app.layout = html.Div([
         
         html.Div(dcc.Graph(id='dispersion-chart', config={'responsive': True}),
                 style={'height':'80%','display': 'flex', 'flex-direction': 'column', 'width': '60%' }),
+        #columna descripcion
         html.Div(
-            [
-                html.Br(),
-                html.Br(),
-                html.Br(),
-                html.Br(),
-                html.Br(),
-                html.Br(),
-                html.Div(id='table-container', style={'margin-left': 100, 'margin-right': 100})
+             [   
+            html.Div([
+                html.H3(id='name_system', style={'textAlign': 'center'})
+            ], style={'background-color': 'white', 'height': '15%'}),
+
+            html.Div(id='card_info', style={'margin-left': 100, 'display': 'flex', 'flex-wrap': 'wrap', 'background-color': 'white', 'height': '25%'}),
+            html.Br(),
+            html.Br(),
+            html.Div(id='table-container', style={'margin-left': 100, 'margin-right': 100, 'height': '55%'})
+            ],
+            style={'height': '80%', 'display': 'flex', 'flex-direction': 'column', 'width': '40%', 'background-color': 'white'}
+            )
+        ],
+        style={'display': 'flex', 'flex-wrap': 'wrap'},
+        className="contains_graph2"
+    ),
+       # NUMERO DE REGISTROS
+    html.Div([
+        html.Div([
+            "NUMERO DE REGISTROS"
+            ],className="banner_2"),
+        
+        html.Div([
+                dbc.Tabs(
+                    id='bar-chart-sistema-tabs_2',
+                    active_tab=f'{sistemas_list[0]}',
+                    class_name='d-flex justify-content-center w-100',
+                    children=[
+                        dbc.Tab(label=str(sistema), 
+                                tab_id=f'{sistema}',
+                                activeLabelClassName="text-success") for sistema in sistemas_list
+                    ]
+                ), 
+            ], 
+            style={'height': '10%',
+                   'display': 'flex', 
+                   'flex-direction': 'column', 
+                   'width': '100%', 
+                   'background-color': 'white'}),
+        
+        html.Div(html.H1('AQUI VA EL GRAFICO'),
+                style={'height':'80%','display': 'flex', 'flex-direction': 'column', 'width': '60%' }),
+        
+        #columna descripcion
+        html.Div(
+             [   
+            html.Div([
+                html.H3(id='name_system_2', style={'textAlign': 'center'})
+            ], style={'background-color': 'white', 'height': '15%'}),
+
+            html.Div(style={'margin-left': 100, 'display': 'flex', 'flex-wrap': 'wrap', 'background-color': 'red', 'height': '25%'}),
+            html.Br(),
+            html.Br(),
+            html.Div(style={'margin-left': 100, 'margin-right': 100, 'height': '55%', 'background-color': 'blue'})
             ],
             style={'height': '80%', 'display': 'flex', 'flex-direction': 'column', 'width': '40%', 'background-color': 'white'}
             )
@@ -258,8 +305,8 @@ def update_graph(value):
         y=sistemas,
         x=num_tablas,
         orientation='h',
-        name='Tablas no vacias',
-        marker_color='#3E7CB1',
+        name='Tablas totales',
+        marker_color='#0081a7',
     ))
 
     # Gráfica de número de tablas vacías
@@ -268,7 +315,7 @@ def update_graph(value):
         x=num_tablas_vacias,
         orientation='h',
         name='Tablas vacías',
-        marker_color='#81A4CD'
+        marker_color='#00afb9'
     ))
 
     # Añadir etiquetas y título
@@ -404,6 +451,10 @@ def update_graph_vall_null(select_system):
     )
     return fig
 
+def insertar_salto_linea(texto, longitud_max):
+    if len(texto) > longitud_max:
+        texto = texto[:longitud_max] + '\n' + texto[longitud_max:]
+    return texto
 
 @app.callback(
     Output('table-container', 'children'),
@@ -416,24 +467,24 @@ def update_table(active_tab):
 
     val_max = df_4['VALORES_NULOS'].max()
     val_min = df_4['VALORES_NULOS'].min()
-    media = df_4['VALORES_NULOS'].mean()
-
+    
+    nombre_tabla_max = df_4['TABLE_NAME'][df_4['VALORES_NULOS'] == val_max].values[0]
+    nombre_tabla_max = insertar_salto_linea(nombre_tabla_max, 18)
+    nombre_tabla_min = df_4['TABLE_NAME'][df_4['VALORES_NULOS'] == val_min].values[0]
+    nombre_tabla_min = insertar_salto_linea(nombre_tabla_min, 18)
+    
     tabla_descripcion = {
         'Descripción': [
             f'Numero maximo de valores nulos en {filtred}',
             f'Numero minimo de valores nulos en {filtred}',
             f'Tabla con mayor numero de valores nulos en {filtred}',
-            f'Tabla con menor numero de valores nulos en {filtred}',
-            f'Promedio de valores nulos en {filtred}',
-            f'Numero de tablas en {filtred}'
+            f'Tabla con menor numero de valores nulos en {filtred}'
         ],
         'Valor': [
             "{:,.1f}".format(val_max),
             "{:,.1f}".format(val_min),
-            df_4['TABLE_NAME'][df_4['VALORES_NULOS'] == val_max].values[0],
-            df_4['TABLE_NAME'][df_4['VALORES_NULOS'] == val_min].values[0],
-            "{:,.1f}".format(media),
-            len(df_4['TABLE_NAME'].unique())
+            nombre_tabla_max,
+            nombre_tabla_min
         ]
     }
 
@@ -451,6 +502,69 @@ def update_table(active_tab):
     table = dbc.Table(table_header + table_body, bordered=True, dark=True, hover=True, responsive=True, striped=True)
 
     return table
+
+@app.callback(
+    Output('name_system', 'children'),
+    [Input('bar-chart-sistema-tabs', 'active_tab')]
+)
+def update_name(active_tab):
+    names =  pd.read_csv('/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/names.csv')
+    return  names['NOMBRE COMPLETO'][names['ACRONIMO'] == active_tab].values[0]
+
+@app.callback(
+    Output('card_info', 'children'),
+    [Input('bar-chart-sistema-tabs', 'active_tab')]
+)
+def cards_null(active_tab):
+    df_5 = pd.concat(list_df_table, ignore_index=True)
+    filtred = active_tab  # Extraer el nombre del sistema del tab_id
+    media = df_5['VALORES_NULOS'][df_5['SISTEMA']==filtred].mean()
+    
+    card_1 = dbc.Card(
+        dbc.CardBody(
+            [
+                html.P('NUMERO DE TABLAS', style={'font-size': '17px', 'color': 'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                html.P(f"{int(df['NUMERO TOTAL DE TABLAS'][df['SISTEMA'] == filtred].values[0])}", style={'font-size': '40px', 'color': 'white', 'font-weight': 'bold', 'textAlign': 'center'})
+            ]
+        ),
+        style={
+            'display': 'flex',
+            'width': "35%",
+            'height': '100%',
+            'background-color': '#4d59ff',
+            'margin': '5px',
+            'border-radius': '15%'
+        }
+    )
+    
+    card_2 = dbc.Card(
+        dbc.CardBody(
+            [
+                html.P('PROMEDIO DE VALORES NULOS: ', style={'font-size': '17px', 'color': 'white', 'font-weight': 'bold', 'textAlign': 'justify'}),
+                html.P("{:,.1f}".format(media), style={'font-size': '25px', 'color': 'white', 'font-weight': 'bold', 'textAlign': 'center'})
+            ]
+        ),
+        style={
+            'display': 'flex',
+            'width': "42%",
+            'height': '100%',
+            'background-color': '#0569ff',
+            'margin': '5px',
+            'border-radius': '15%'
+        }
+    )
+    
+    return [card_1, card_2]
+
+
+
+@app.callback(
+    Output('name_system_2', 'children'),
+    [Input('bar-chart-sistema-tabs_2', 'active_tab')]
+)
+def update_name_2(active_tab):
+    names =  pd.read_csv('/home/azureuser/proyects/data_lake/dash/dash-quality_data/data/names.csv')
+    return  names['NOMBRE COMPLETO'][names['ACRONIMO'] == active_tab].values[0]
 
 if __name__ == '__main__':
     app.run_server(debug=True, port = 8051)
