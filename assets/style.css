@@ -13,11 +13,22 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Arial', sans-serif; /* Cambia la fuente a una más atractiva */
-    font-size: 24px; /* Ajusta el tamaño de la fuente */
-    color: white; /* Cambia el color del texto */
-    text-transform: uppercase; /* Transforma el texto a mayúsculas */
-    letter-spacing: 2px; /* Espaciado entre letras */
+    font-family: 'Arial', sans-serif;
+    font-size: 24px;
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.logo {
+    height: 10px; /* Ajusta el tamaño del logo */
+    margin-left: 50px;
+    margin-right: 0px; /* Espacio entre el logo y el texto */
+}
+
+.banner-text {
+    flex: 1; /* Hace que el texto ocupe el espacio restante */
+    text-align: center; /* Centra el texto */
 }
 
 .banner_2 {
@@ -49,7 +60,7 @@ body {
     background-color: #f07167;
 }
 .contains_graph1 {
-    width: 98%;
+    width: 95%;
     height: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -59,12 +70,12 @@ body {
 }
 
 .contains_graph2 {
-    width: 98%;
-    height: 800px;
+    width: 95%;
+    height: 900px;
     margin-left: auto;
     margin-right: auto;
     margin-top: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     background-color: #ffffff;
 }
 
