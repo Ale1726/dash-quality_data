@@ -21,8 +21,8 @@ body {
 }
 
 .logo {
-    height: 10px; /* Ajusta el tamaño del logo */
-    margin-left: 50px;
+    height: 60px; /* Ajusta el tamaño del logo */
+    margin-left: 10px;
     margin-right: 0px; /* Espacio entre el logo y el texto */
 }
 
@@ -48,17 +48,7 @@ body {
     text-transform: uppercase; /* Transforma el texto a mayúsculas */
     letter-spacing: 2px; /* Espaciado entre letras */
 }
-.prueba{
-    background-color: #0a2239;
-    background-color: #336c81;
-    background-color: #1d84b5;
-    background-color: #00eaff;
-    background-color: #00ffcc;
-    background-color: #00ff48; 
-    background-color: #f2ff00; 
-    background-color: #ff8009;
-    background-color: #f07167;
-}
+
 .contains_graph1 {
     width: 95%;
     height: 100%;
@@ -79,3 +69,12 @@ body {
     background-color: #ffffff;
 }
 
+.contains_graph3 {
+    width: 95%;
+    height: 900px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+}
